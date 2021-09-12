@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ghichu"
+            android:icon="@drawable/ic_ghichu"
+            android:title="Ghi chú" />
+        <item
+            android:id="@+id/nav_loinhac"
+            android:icon="@drawable/ic_loinhac"
+            android:title="Lời nhắc" />
+        <item
+            android:id="@+id/nav_nhan"
+            android:icon="@drawable/ic_nhan"
+            android:title="Nhãn" />
+        <item
+            android:id="@+id/nav_thungrac"
+            android:icon="@drawable/ic_thungrac"
+            android:title="Thùng rác" />
+    </group>
+</menu>
