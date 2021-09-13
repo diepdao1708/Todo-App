@@ -7,6 +7,7 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 class ToDoRepository(private val toDoDAO: ToDoDAO) {
     val getAllData: LiveData<List<ToDoData>> = toDoDAO.getAllData()
 
+
     suspend fun insertData(toDoData: ToDoData){
         toDoDAO.insertData(toDoData)
     }

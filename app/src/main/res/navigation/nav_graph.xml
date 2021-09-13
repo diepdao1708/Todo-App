@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_ghiChuFragment_to_addFragment"
             app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_ghiChuFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/loiNhacFragment"
@@ -52,4 +55,15 @@
     <action
         android:id="@+id/move_thungrac"
         app:destination="@+id/thungRacFragment"/>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.android.diepdao1708.todo4.fragments.update.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_ghiChuFragment"
+            app:destination="@id/ghiChuFragment"
+            app:popUpTo="@id/ghiChuFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
