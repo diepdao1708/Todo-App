@@ -2,12 +2,12 @@ package com.android.diepdao1708.todo4.fragments.ghichu
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.diepdao1708.todo4.R
 import com.android.diepdao1708.todo4.data.models.ToDoData
@@ -15,7 +15,8 @@ import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
 import com.android.diepdao1708.todo4.fragments.ghichu.adapter.GhiChuAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.android.diepdao1708.todo4.hideKeyboard
+import com.google.android.material.snackbar.Snackbar
 
 
 class GhiChuFragment : Fragment() {
@@ -33,22 +34,26 @@ class GhiChuFragment : Fragment() {
 
         binding = FragmentGhiChuBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
-        binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_ghiChuFragment_to_addFragment)
-        }
+        sharedViewModel.also { binding.sharedViewModel = it }
 
         //Setup recyclerview
         setUpRecyclerView()
 
         //Observe LiveData
-        toDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
-//            sharedViewModel.checkIfDatabaseEmpty(data)
+        toDoViewModel.getGhiChuData.observe(viewLifecycleOwner, Observer { data ->
+            sharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
         })
 
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_ghiChuFragment_to_addFragment)
+        }
+
         //set menu
         setHasOptionsMenu(true)
+
+        //Hide keyboard
+        hideKeyboard(requireActivity())
 
         return binding.root
     }
@@ -61,7 +66,38 @@ class GhiChuFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
 
+        //Swipe to Delete
+        swipeToDelete(recyclerView)
+    }
+
+    private fun swipeToDelete(recyclerView: RecyclerView){
+        val swipeToDeleteCallback = object : SwipeToDelete(){
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val deletedItem = adapter.ghichuList[viewHolder.adapterPosition]
+
+                deletedItem.todo_garbage = true
+                toDoViewModel.updateData(deletedItem)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+
+                //Restore Deleted Item
+                restoreDeletedData(viewHolder.itemView, deletedItem)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
+        val snackbar = Snackbar.make(
+            view, "Đã được chuyển vào thùng rác ",
+            Snackbar.LENGTH_LONG
+        )
+        snackbar.setAction("Hoàn tác") {
+            deletedItem.todo_garbage = false
+            toDoViewModel.updateData(deletedItem)
+        }
+        snackbar.show()
     }
 }

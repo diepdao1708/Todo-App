@@ -10,6 +10,9 @@ interface ToDoDAO {
     @Query("SELECT * FROM todo_table ORDER BY todo_id ASC")
     fun getAllData(): LiveData<List<ToDoData>>
 
+    @Query("SELECT * FROM todo_table WHERE todo_garbage == 0")
+    fun getGhiChuData(): LiveData<List<ToDoData>>
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)
