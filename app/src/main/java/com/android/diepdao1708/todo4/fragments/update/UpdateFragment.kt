@@ -15,7 +15,6 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentUpdateBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -100,13 +99,15 @@ class UpdateFragment : Fragment() {
                 args.currentItem.todo_id,
                 args.currentItem.todo_title,
                 args.currentItem.todo_description,
-                currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)),
-                currentDateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)),
+                args.currentItem.todo_time,
+                args.currentItem.todo_date,
+//                currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)),
+//                currentDateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)),
                 false,
                 true
             )
             toDoViewModel.updateData(deletedData)
-            Toast.makeText(requireContext(), "Xóa thành công!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Đã chuyển vào thùng rác!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateFragment_to_ghiChuFragment)
         }
         builder.setNegativeButton("Không") { _, _ -> }

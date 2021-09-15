@@ -7,12 +7,14 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 @Dao
 interface ToDoDAO {
 
-    @Query("SELECT * FROM todo_table ORDER BY todo_id ASC")
-    fun getAllData(): LiveData<List<ToDoData>>
+//    @Query("SELECT * FROM todo_table ORDER BY todo_id ASC")
+//    fun getAllData(): LiveData<List<ToDoData>>
 
     @Query("SELECT * FROM todo_table WHERE todo_garbage == 0")
     fun getGhiChuData(): LiveData<List<ToDoData>>
 
+    @Query("SELECT * FROM todo_table WHERE todo_garbage == 1")
+    fun getThungRacData(): LiveData<List<ToDoData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)

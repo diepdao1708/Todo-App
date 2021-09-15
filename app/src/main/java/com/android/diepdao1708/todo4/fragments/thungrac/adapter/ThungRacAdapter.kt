@@ -1,29 +1,27 @@
-package com.android.diepdao1708.todo4.fragments.ghichu.adapter
+package com.android.diepdao1708.todo4.fragments.thungrac.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.diepdao1708.todo4.data.models.ToDoData
-import com.android.diepdao1708.todo4.databinding.RecyclerviewItemBinding
+import com.android.diepdao1708.todo4.databinding.DeleteItemBinding
 import com.android.diepdao1708.todo4.fragments.ToDoDiffUtil
 
+class ThungRacAdapter : RecyclerView.Adapter<ThungRacAdapter.MyViewHolder>(){
 
-class GhiChuAdapter : RecyclerView.Adapter<GhiChuAdapter.MyViewHolder>() {
+    var thungracList = emptyList<ToDoData>()
 
-    var ghichuList = emptyList<ToDoData>()
-
-    class MyViewHolder(val binding: RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
-
-        fun bind(todDoData: ToDoData){
-            binding.toDoData = todDoData
+    class MyViewHolder(val binding: DeleteItemBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(toDoData: ToDoData){
+            binding.toDoData = toDoData
             binding.executePendingBindings()
         }
 
         companion object{
             fun from(parent: ViewGroup) : MyViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = RecyclerviewItemBinding.inflate(layoutInflater, parent, false)
+                val binding = DeleteItemBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }
@@ -34,19 +32,18 @@ class GhiChuAdapter : RecyclerView.Adapter<GhiChuAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = ghichuList[position]
+        val currentItem = thungracList[position]
         holder.bind(currentItem)
     }
 
     override fun getItemCount(): Int {
-        return ghichuList.size
+        return thungracList.size
     }
 
     fun setData(toDoData: List<ToDoData>) {
-        val toDoDiffUtil = ToDoDiffUtil(ghichuList, toDoData)
+        val toDoDiffUtil = ToDoDiffUtil(thungracList, toDoData)
         val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
-        this.ghichuList = toDoData
+        this.thungracList = toDoData
         toDoDiffResult.dispatchUpdatesTo(this)
     }
-
 }

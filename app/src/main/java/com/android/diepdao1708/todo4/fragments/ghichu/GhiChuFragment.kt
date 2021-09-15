@@ -14,8 +14,9 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
+import com.android.diepdao1708.todo4.fragments.SwipeToDelete
 import com.android.diepdao1708.todo4.fragments.ghichu.adapter.GhiChuAdapter
-import com.android.diepdao1708.todo4.hideKeyboard
+import com.android.diepdao1708.todo4.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -91,7 +92,7 @@ class GhiChuFragment : Fragment() {
 
     private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
         val snackbar = Snackbar.make(
-            view, "Đã được chuyển vào thùng rác ",
+            view, "Đã chuyển vào thùng rác!",
             Snackbar.LENGTH_LONG
         )
         snackbar.setAction("Hoàn tác") {

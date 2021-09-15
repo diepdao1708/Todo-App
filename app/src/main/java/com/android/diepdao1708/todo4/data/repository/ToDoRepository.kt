@@ -5,9 +5,11 @@ import com.android.diepdao1708.todo4.data.ToDoDAO
 import com.android.diepdao1708.todo4.data.models.ToDoData
 
 class ToDoRepository(private val toDoDAO: ToDoDAO) {
-    val getAllData: LiveData<List<ToDoData>> = toDoDAO.getAllData()
+//    val getAllData: LiveData<List<ToDoData>> = toDoDAO.getAllData()
 
     val getGhiChuData: LiveData<List<ToDoData>> = toDoDAO.getGhiChuData()
+
+    val getThungRacData: LiveData<List<ToDoData>> = toDoDAO.getThungRacData()
 
     suspend fun insertData(toDoData: ToDoData){
         toDoDAO.insertData(toDoData)

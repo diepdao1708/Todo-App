@@ -1,4 +1,4 @@
-package com.android.diepdao1708.todo4.fragments.ghichu.adapter
+package com.android.diepdao1708.todo4.fragments
 
 import androidx.recyclerview.widget.DiffUtil
 import com.android.diepdao1708.todo4.data.models.ToDoData
