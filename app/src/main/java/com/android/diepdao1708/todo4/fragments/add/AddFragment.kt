@@ -66,12 +66,12 @@ class AddFragment : Fragment() {
                 false
             )
             toDoViewModel.insertData(newData)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Thêm ghi chú thành công!", Toast.LENGTH_LONG).show()
 
             // Navigate back
             findNavController().navigate(R.id.action_addFragment_to_ghiChuFragment)
         } else {
-            Toast.makeText(requireContext(), "Vui lòng nhập đủ", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Vui lòng nhập đủ!", Toast.LENGTH_LONG).show()
         }
     }
 }

@@ -23,7 +23,7 @@ class BindingAdapters {
         @JvmStatic
         fun sendDataToUpdateFragment(view: ConstraintLayout, currentItem: ToDoData){
             view.setOnClickListener {
-                val action = GhiChuFragmentDirections.actionGhiChuFragmentToUpdateFragment()
+                val action = GhiChuFragmentDirections.actionGhiChuFragmentToUpdateFragment(currentItem)
                 view.findNavController().navigate(action)
             }
         }

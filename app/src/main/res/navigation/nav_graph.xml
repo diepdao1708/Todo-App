@@ -65,5 +65,8 @@
             app:destination="@id/ghiChuFragment"
             app:popUpTo="@id/ghiChuFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="currentItem"
+            app:argType="com.android.diepdao1708.todo4.data.models.ToDoData" />
     </fragment>
 </navigation>
