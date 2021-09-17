@@ -10,13 +10,14 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
+
     fun checkIfDatabaseEmpty(toDoData: List<ToDoData>){
         emptyDatabase.value = toDoData.isEmpty()
     }
 
-    fun verifDataFromUser(title: String, desciption: String) : Boolean {
-        return if(TextUtils.isEmpty(title) || TextUtils.isEmpty(desciption)){
+    fun verifDataFromUser(desciption: String) : Boolean {
+        return if(TextUtils.isEmpty(desciption)){
             return false
-        } else !(title.isEmpty()  || desciption.isEmpty())
+        } else !(desciption.isEmpty())
     }
 }

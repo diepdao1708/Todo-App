@@ -17,21 +17,25 @@
             android:id="@+id/action_ghiChuFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/loiNhacFragment"
         android:name="com.android.diepdao1708.todo4.fragments.loinhac.LoiNhacFragment"
         android:label="fragment_loi_nhac"
         tools:layout="@layout/fragment_loi_nhac" />
+
     <fragment
         android:id="@+id/nhanFragment"
         android:name="com.android.diepdao1708.todo4.fragments.nhan.NhanFragment"
         android:label="fragment_nhan"
         tools:layout="@layout/fragment_nhan" />
+
     <fragment
         android:id="@+id/thungRacFragment"
         android:name="com.android.diepdao1708.todo4.fragments.thungrac.ThungRacFragment"
         android:label="fragment_thung_rac"
         tools:layout="@layout/fragment_thung_rac" />
+
     <fragment
         android:id="@+id/addFragment"
         android:name="com.android.diepdao1708.todo4.fragments.add.AddFragment"
@@ -42,19 +46,25 @@
             app:destination="@id/ghiChuFragment"
             app:popUpTo="@id/ghiChuFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
+
     <action
         android:id="@+id/move_ghichu"
         app:destination="@+id/ghiChuFragment"/>
+
     <action
         android:id="@+id/move_loinhac"
         app:destination="@+id/loiNhacFragment"/>
+
     <action
         android:id="@+id/move_nhan"
         app:destination="@+id/nhanFragment"/>
+
     <action
         android:id="@+id/move_thungrac"
         app:destination="@+id/thungRacFragment"/>
+
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.android.diepdao1708.todo4.fragments.update.UpdateFragment"
@@ -69,4 +79,5 @@
             android:name="currentItem"
             app:argType="com.android.diepdao1708.todo4.data.models.ToDoData" />
     </fragment>
+
 </navigation>

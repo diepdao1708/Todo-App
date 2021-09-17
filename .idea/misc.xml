@@ -8,18 +8,21 @@
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_sort.xml" value="0.22037037037037038" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/row_item_background.xml" value="0.21851851851851853" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/time_date_background.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout-v17/fragment_time_date.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/activity_main.xml" value="0.15185185185185185" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/delete_item.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_ghi_chu.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_thung_rac.xml" value="0.1" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_time_date.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/header_main.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/recyclerview_item.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/recyclerview_item.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/row_item.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/add_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/ghi_chu_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/thung_rac_menu.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/time_date_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/toolbar_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/update_menu.xml" value="0.259375" />
       </map>

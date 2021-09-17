@@ -37,7 +37,7 @@
             android:weightSum="45">
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_weight="26"
+                android:layout_weight="25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_title}"
@@ -47,12 +47,23 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_loinhac"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:visibility="invisible"/>
+
             <TextView
                 android:id="@+id/textViewTime"
-                android:layout_weight="10"
+                android:layout_weight="8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_time}"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:visibility="invisible"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/darkGray"
@@ -70,10 +81,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/textViewDate"
-                android:layout_weight="8"
+                android:layout_weight="10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_date}"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:visibility="invisible"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/darkGray"
@@ -82,24 +95,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
         </LinearLayout>
-
-<!--        <TextView-->
-<!--            android:id="@+id/textViewTitle"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:text="@{toDoData.todo_title}"-->
-<!--            android:textColor="@color/darkGray"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginRight="16dp" />-->
 
         <TextView
             android:id="@+id/textViewDescription"

@@ -10,6 +10,7 @@
             type="com.android.diepdao1708.todo4.fragments.SharedViewModel" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

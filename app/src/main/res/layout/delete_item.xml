@@ -36,7 +36,7 @@
             android:weightSum="45">
             <TextView
                 android:id="@+id/textViewTitle_delete"
-                android:layout_weight="26"
+                android:layout_weight="25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_title}"
@@ -46,12 +46,21 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_loinhac"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:visibility="invisible"/>
             <TextView
                 android:id="@+id/textViewTime_delete"
                 android:layout_weight="10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_time}"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:visibility="invisible"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/darkGray"
@@ -73,6 +82,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_date}"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:visibility="invisible"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/darkGray"
