@@ -85,6 +85,7 @@ class UpdateFragment : Fragment() {
 
         //set menu
         setHasOptionsMenu(true)
+
         return binding.root
     }
 

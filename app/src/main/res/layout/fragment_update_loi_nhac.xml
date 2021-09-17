@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.loinhac.update.UpdateLoiNhacFragment">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".fragments.loinhac.update.UpdateLoiNhacFragment">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutUpdateLoiNhac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            tools:ignore="MissingConstraints" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setTextViewTimeUpdateLoiNhac"
+                android:text="07:00"
+                android:background="@drawable/time_date_background"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:layout_weight="3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setTextViewDateUpdateLoiNhac"
+                android:text="Ngày mai"
+                android:gravity="center"
+                android:background="@drawable/time_date_background"
+                android:visibility="invisible"
+                android:layout_weight="3"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchReminderUpdateLoiNhac"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextUpdateTitleLoiNhac"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:ems="10"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:inputType="textPersonName"
+            android:hint="Tiêu đề"
+            android:text=""
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutUpdateLoiNhac"/>
+
+
+        <EditText
+            android:id="@+id/editTextUpdateDescriptionLoiNhac"
+            android:background="@android:color/transparent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ems="10"
+            android:gravity="top|start"
+            android:hint="Ghi chú"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="16dp"
+            android:text=""
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUpdateTitleLoiNhac"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
