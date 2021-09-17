@@ -1,5 +1,7 @@
 package com.android.diepdao1708.todo4.fragments.update
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -13,6 +15,9 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentUpdateBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
+import kotlinx.android.synthetic.main.fragment_add.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class UpdateFragment : Fragment() {
@@ -34,7 +39,50 @@ class UpdateFragment : Fragment() {
         binding.editTextUpdateTitle.setText(args.currentItem.todo_title)
         binding.editTextUpdateDescription.setText(args.currentItem.todo_description)
 
+        // nếu đang reminder == true thì hiện time & date
+        binding.switchReminderUpdate.setChecked(args.currentItem.todo_reminder)
+        if(args.currentItem.todo_reminder){
+            binding.setTextViewTimeUpdate.visibility = View.VISIBLE
+            binding.setTextViewDateUpdate.visibility = View.VISIBLE
+            binding.setTextViewTimeUpdate.setText(args.currentItem.todo_time)
+            binding.setTextViewDateUpdate.setText(args.currentItem.todo_date)
+        } else {
+            binding.setTextViewTimeUpdate.visibility = View.INVISIBLE
+            binding.setTextViewDateUpdate.visibility = View.INVISIBLE
+        }
 
+        // set sự kiện reminder
+        binding.switchReminderUpdate.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                binding.setTextViewTimeUpdate.visibility = View.VISIBLE
+                binding.setTextViewDateUpdate.visibility = View.VISIBLE
+
+                binding.setTextViewTimeUpdate.setOnClickListener {
+                    val cal = Calendar.getInstance()
+                    val time = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        cal.set(Calendar.MINUTE, minute)
+                        binding.setTextViewTimeUpdate.text = SimpleDateFormat("HH:mm").format(cal.time)
+                    }
+                    TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+                }
+
+                binding.setTextViewDateUpdate.setOnClickListener {
+                    val cal = Calendar.getInstance()
+                    val date = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        binding.setTextViewDateUpdate.text = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(cal.getTime())
+                    }
+                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+                }
+
+            } else{
+                binding.setTextViewTimeUpdate.visibility = View.INVISIBLE
+                binding.setTextViewDateUpdate.visibility = View.INVISIBLE
+            }
+        }
 
         //set menu
         setHasOptionsMenu(true)
@@ -67,10 +115,10 @@ class UpdateFragment : Fragment() {
                 args.currentItem.todo_id,
                 title,
                 description,
-                args.currentItem.todo_time,
-                args.currentItem.todo_date,
-                args.currentItem.todo_reminder,
-                args.currentItem.todo_garbage
+                binding.setTextViewTimeUpdate.text.toString(),
+                binding.setTextViewDateUpdate.text.toString(),
+                binding.switchReminderUpdate.isChecked,
+                false
             )
             toDoViewModel.updateData(updateData)
             Toast.makeText(requireContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show()

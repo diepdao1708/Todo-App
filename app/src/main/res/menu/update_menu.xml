@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_update_reminder"
-        android:icon="@drawable/ic_loinhac"
-        android:iconTint="@color/black"
-        android:title="Reminder"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/menu_update_save"
         android:icon="@drawable/ic_save"
         android:iconTint="@color/black"

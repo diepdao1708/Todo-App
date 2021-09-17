@@ -10,6 +10,44 @@
         android:layout_height="match_parent"
         tools:context=".fragments.update.UpdateFragment">
 
+        <LinearLayout
+            android:id="@+id/linearLayoutUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            tools:ignore="MissingConstraints" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setTextViewTimeUpdate"
+                android:text="07:00"
+                android:background="@drawable/time_date_background"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:layout_weight="3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setTextViewDateUpdate"
+                android:text="Ngày mai"
+                android:gravity="center"
+                android:background="@drawable/time_date_background"
+                android:visibility="invisible"
+                android:layout_weight="3"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchReminderUpdate"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/editTextUpdateTitle"
@@ -24,7 +62,7 @@
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutUpdate"/>
 
 
         <EditText

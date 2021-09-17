@@ -1,6 +1,8 @@
 package com.android.diepdao1708.todo4.fragments.add
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -15,7 +17,8 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentAddBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AddFragment : Fragment() {
@@ -33,12 +36,32 @@ class AddFragment : Fragment() {
 
         binding = FragmentAddBinding.inflate(inflater, container, false)
 
-        Log.d("switch", binding.switchReminder.isChecked.toString())
-
         binding.switchReminder.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked) {
                 binding.setTextViewTime.visibility = VISIBLE
                 binding.setTextViewDate.visibility = VISIBLE
+
+                binding.setTextViewTime.setOnClickListener {
+                    val cal = Calendar.getInstance()
+                    val time = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        cal.set(Calendar.MINUTE, minute)
+                        binding.setTextViewTime.text = SimpleDateFormat("HH:mm").format(cal.time)
+                    }
+                    TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+                }
+
+                binding.setTextViewDate.setOnClickListener {
+                    val cal = Calendar.getInstance()
+                    val date = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        binding.setTextViewDate.text = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(cal.getTime())
+                    }
+                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+                }
+
             } else{
                 binding.setTextViewTime.visibility = INVISIBLE
                 binding.setTextViewDate.visibility = INVISIBLE
@@ -65,21 +88,18 @@ class AddFragment : Fragment() {
         val title = binding.editTextTitle.text.toString()
         val description = binding.editTextDescription.text.toString()
         val validation = sharedViewModel.verifDataFromUser(description)
-
-
-
         if (validation){
 
             val newData = ToDoData(
                 0,
                 title,
                 description,
-                "",
-                "",
-                false,
+                binding.setTextViewTime.text.toString(),
+                binding.setTextViewDate.text.toString(),
+                binding.switchReminder.isChecked,
                 false
             )
-
+            Log.d("switch", newData.todo_reminder.toString())
             toDoViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Thêm ghi chú thành công!", Toast.LENGTH_LONG).show()
 
