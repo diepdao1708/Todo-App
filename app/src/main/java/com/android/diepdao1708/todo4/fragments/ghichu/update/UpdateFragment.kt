@@ -1,4 +1,4 @@
-package com.android.diepdao1708.todo4.fragments.update
+package com.android.diepdao1708.todo4.fragments.ghichu.update
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -15,7 +15,6 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentUpdateBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_add.*
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.android.diepdao1708.todo4.fragments.add.AddFragment"
+        android:name="com.android.diepdao1708.todo4.fragments.ghichu.add.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         <action
@@ -67,7 +67,7 @@
 
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.android.diepdao1708.todo4.fragments.update.UpdateFragment"
+        android:name="com.android.diepdao1708.todo4.fragments.ghichu.update.UpdateFragment"
         android:label="fragment_update"
         tools:layout="@layout/fragment_update" >
         <action

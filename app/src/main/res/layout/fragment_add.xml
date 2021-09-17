@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.add.AddFragment">
+        tools:context=".fragments.ghichu.add.AddFragment">
 
         <LinearLayout
             android:id="@+id/linearLayout"
