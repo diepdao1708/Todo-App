@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.fragments.ghichu.GhiChuFragmentDirections
+import com.android.diepdao1708.todo4.fragments.loinhac.LoiNhacFragmentDirections
 
 class BindingAdapters {
     companion object {
@@ -37,6 +38,13 @@ class BindingAdapters {
             }
         }
 
-
+        @BindingAdapter("android:sendDataToUpdateLoiNhacFragment")
+        @JvmStatic
+        fun sendDataToUpdateLoiNhacFragment(view: ConstraintLayout, currentItemLoiNhac: ToDoData){
+            view.setOnClickListener {
+                val action = LoiNhacFragmentDirections.actionLoiNhacFragmentToUpdateLoiNhacFragment(currentItemLoiNhac)
+                view.findNavController().navigate(action)
+            }
+        }
     }
 }

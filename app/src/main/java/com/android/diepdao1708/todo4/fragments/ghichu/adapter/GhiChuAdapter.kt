@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.diepdao1708.todo4.data.models.ToDoData
-import com.android.diepdao1708.todo4.databinding.RecyclerviewItemBinding
+import com.android.diepdao1708.todo4.databinding.GhichuItemBinding
 import com.android.diepdao1708.todo4.fragments.ToDoDiffUtil
 
 
@@ -13,7 +13,7 @@ class GhiChuAdapter : RecyclerView.Adapter<GhiChuAdapter.MyViewHolder>() {
 
     var ghichuList = emptyList<ToDoData>()
 
-    class MyViewHolder(val binding: RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class MyViewHolder(val binding: GhichuItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(todDoData: ToDoData){
             binding.toDoData = todDoData
@@ -23,7 +23,7 @@ class GhiChuAdapter : RecyclerView.Adapter<GhiChuAdapter.MyViewHolder>() {
         companion object{
             fun from(parent: ViewGroup) : MyViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = RecyclerviewItemBinding.inflate(layoutInflater, parent, false)
+                val binding = GhichuItemBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }

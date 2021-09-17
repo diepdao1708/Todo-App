@@ -16,7 +16,7 @@ interface ToDoDAO {
     @Query("SELECT * FROM todo_table WHERE todo_garbage == 1")
     fun getThungRacData(): LiveData<List<ToDoData>>
 
-    @Query("SELECT * FROM todo_table WHERE todo_reminder == 1")
+    @Query("SELECT * FROM todo_table WHERE todo_reminder == 1 and todo_garbage == 0")
     fun getLoiNhacData(): LiveData<List<ToDoData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

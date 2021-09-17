@@ -22,7 +22,14 @@
         android:id="@+id/loiNhacFragment"
         android:name="com.android.diepdao1708.todo4.fragments.loinhac.LoiNhacFragment"
         android:label="fragment_loi_nhac"
-        tools:layout="@layout/fragment_loi_nhac" />
+        tools:layout="@layout/fragment_loi_nhac" >
+        <action
+            android:id="@+id/action_loiNhacFragment_to_addLoiNhacFragment"
+            app:destination="@id/addLoiNhacFragment" />
+        <action
+            android:id="@+id/action_loiNhacFragment_to_updateLoiNhacFragment"
+            app:destination="@id/updateLoiNhacFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nhanFragment"
@@ -40,7 +47,7 @@
         android:id="@+id/addFragment"
         android:name="com.android.diepdao1708.todo4.fragments.ghichu.add.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
+        tools:layout="@layout/fragment_add_ghi_chu" >
         <action
             android:id="@+id/action_addFragment_to_ghiChuFragment"
             app:destination="@id/ghiChuFragment"
@@ -69,7 +76,7 @@
         android:id="@+id/updateFragment"
         android:name="com.android.diepdao1708.todo4.fragments.ghichu.update.UpdateFragment"
         android:label="fragment_update"
-        tools:layout="@layout/fragment_update" >
+        tools:layout="@layout/fragment_update_ghi_chu" >
         <action
             android:id="@+id/action_updateFragment_to_ghiChuFragment"
             app:destination="@id/ghiChuFragment"
@@ -78,6 +85,31 @@
         <argument
             android:name="currentItem"
             app:argType="com.android.diepdao1708.todo4.data.models.ToDoData" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateLoiNhacFragment"
+        android:name="com.android.diepdao1708.todo4.fragments.loinhac.update.UpdateLoiNhacFragment"
+        android:label="fragment_update_loi_nhac"
+        tools:layout="@layout/fragment_update_loi_nhac" >
+        <action
+            android:id="@+id/action_updateLoiNhacFragment_to_loiNhacFragment"
+            app:destination="@id/loiNhacFragment"
+            app:popUpTo="@id/loiNhacFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="currentItemLoiNhac"
+            app:argType="com.android.diepdao1708.todo4.data.models.ToDoData" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLoiNhacFragment"
+        android:name="com.android.diepdao1708.todo4.fragments.loinhac.add.AddLoiNhacFragment"
+        android:label="fragment_add_loi_nhac"
+        tools:layout="@layout/fragment_add_loi_nhac" >
+        <action
+            android:id="@+id/action_addLoiNhacFragment_to_loiNhacFragment"
+            app:destination="@id/loiNhacFragment"
+            app:popUpTo="@id/loiNhacFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

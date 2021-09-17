@@ -12,11 +12,16 @@
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/activity_main.xml" value="0.15185185185185185" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/delete_item.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add.xml" value="0.264" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add2.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add_loi_nhac.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_ghi_chu.xml" value="0.128" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_loi_nhac.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_thung_rac.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_time_date.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update.xml" value="0.16" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update_ghi_chu.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update_loi_nhac.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/ghichu_item.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/header_main.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/loinhac_item.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/recyclerview_item.xml" value="0.1" />

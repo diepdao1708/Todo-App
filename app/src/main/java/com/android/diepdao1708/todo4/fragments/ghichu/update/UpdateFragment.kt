@@ -13,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.android.diepdao1708.todo4.R
 import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
-import com.android.diepdao1708.todo4.databinding.FragmentUpdateBinding
+import com.android.diepdao1708.todo4.databinding.FragmentUpdateGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,7 +21,7 @@ import java.util.*
 
 class UpdateFragment : Fragment() {
 
-    private lateinit var binding: FragmentUpdateBinding
+    private lateinit var binding: FragmentUpdateGhiChuBinding
 
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
@@ -34,7 +34,7 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentUpdateBinding.inflate(inflater, container, false)
+        binding = FragmentUpdateGhiChuBinding.inflate(inflater, container, false)
         binding.editTextUpdateTitle.setText(args.currentItem.todo_title)
         binding.editTextUpdateDescription.setText(args.currentItem.todo_description)
 
