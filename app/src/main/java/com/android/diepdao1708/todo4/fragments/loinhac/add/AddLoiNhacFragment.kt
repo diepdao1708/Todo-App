@@ -3,10 +3,12 @@ package com.android.diepdao1708.todo4.fragments.loinhac.add
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +18,8 @@ import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentAddLoiNhacBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class AddLoiNhacFragment : Fragment() {
@@ -24,6 +28,7 @@ class AddLoiNhacFragment : Fragment() {
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +40,11 @@ class AddLoiNhacFragment : Fragment() {
             if(isChecked) {
                 binding.setTextViewTimeLoinhac.visibility = View.VISIBLE
                 binding.setTextViewDateLoinhac.visibility = View.VISIBLE
+
+                val currentDateTime = LocalDateTime.now()
+                binding.setTextViewTimeLoinhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")))
+
+                binding.setTextViewDateLoinhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
 
                 binding.setTextViewTimeLoinhac.setOnClickListener {
                     val cal = Calendar.getInstance()

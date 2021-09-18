@@ -3,12 +3,14 @@ package com.android.diepdao1708.todo4.fragments.ghichu.add
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +20,9 @@ import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentAddGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 
@@ -28,6 +33,7 @@ class AddFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +46,10 @@ class AddFragment : Fragment() {
             if(isChecked) {
                 binding.setTextViewTime.visibility = VISIBLE
                 binding.setTextViewDate.visibility = VISIBLE
+                val currentDateTime = LocalDateTime.now()
+                binding.setTextViewTime.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")))
+
+                binding.setTextViewDate.setText(currentDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
 
                 binding.setTextViewTime.setOnClickListener {
                     val cal = Calendar.getInstance()
