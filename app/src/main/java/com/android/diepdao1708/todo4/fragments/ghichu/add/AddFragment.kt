@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.*
 import android.view.View.INVISIBLE
@@ -19,64 +20,59 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentAddGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
-import java.text.SimpleDateFormat
+import com.android.diepdao1708.todo4.service.AddAlarm
+import kotlinx.android.synthetic.main.fragment_add_ghi_chu.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
-
 
 class AddFragment : Fragment() {
 
     private lateinit var binding : FragmentAddGhiChuBinding
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
-
+    lateinit var alarmService: AddAlarm
+    private var time: Long = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("WrongConstant")
+    @SuppressLint("WrongConstant", "UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentAddGhiChuBinding.inflate(inflater, container, false)
-
-        binding.switchReminder.setOnCheckedChangeListener { buttonView, isChecked ->
+        alarmService = AddAlarm(context!!)
+        binding.switchReminder.setOnCheckedChangeListener { _ , isChecked ->
             if(isChecked) {
                 binding.setTextViewTime.visibility = VISIBLE
-                binding.setTextViewDate.visibility = VISIBLE
                 val currentDateTime = LocalDateTime.now()
-                binding.setTextViewTime.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")))
+                binding.setTextViewTime.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy")))
 
-                binding.setTextViewDate.setText(currentDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-
-                binding.setTextViewTime.setOnClickListener {
+                binding.setTextViewTime.setOnClickListener  {
                     val cal = Calendar.getInstance()
-                    val time = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val time = TimePickerDialog.OnTimeSetListener { _ , hourOfDay, minute ->
                         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         cal.set(Calendar.MINUTE, minute)
-                        binding.setTextViewTime.text = SimpleDateFormat("HH:mm").format(cal.time)
+                        val date = DatePickerDialog.OnDateSetListener { _ , year, month, dayOfMonth ->
+                            cal.set(Calendar.YEAR, year)
+                            cal.set(Calendar.MONTH, month)
+                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            Log.e("time", cal.timeInMillis.toString())
+                            time = cal.timeInMillis
+                            binding.setTextViewTime.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                        }
+                        context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+
                     }
                     TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
                 }
 
-                binding.setTextViewDate.setOnClickListener {
-                    val cal = Calendar.getInstance()
-                    val date = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, month)
-                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        binding.setTextViewDate.text = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(cal.getTime())
-                    }
-                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
-                }
-
             } else{
                 binding.setTextViewTime.visibility = INVISIBLE
-                binding.setTextViewDate.visibility = INVISIBLE
             }
         }
+
         //set menu
         setHasOptionsMenu(true)
         return binding.root
@@ -86,6 +82,7 @@ class AddFragment : Fragment() {
         inflater.inflate(R.menu.add_menu, menu)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_save){
             insertDataToDatabase()
@@ -94,6 +91,7 @@ class AddFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun insertDataToDatabase() {
         val title = binding.editTextTitle.text.toString()
         val description = binding.editTextDescription.text.toString()
@@ -105,12 +103,13 @@ class AddFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTime.text.toString(),
-                binding.setTextViewDate.text.toString(),
+                time,
                 binding.switchReminder.isChecked,
                 false
             )
-            Log.d("switch", newData.todo_reminder.toString())
             toDoViewModel.insertData(newData)
+            Log.e("time", time.toString())
+            if (switchReminder.isChecked) alarmService.setExactAlarm(time, newData)
             Toast.makeText(requireContext(), "Thêm ghi chú thành công!", Toast.LENGTH_LONG).show()
 
             // Navigate back

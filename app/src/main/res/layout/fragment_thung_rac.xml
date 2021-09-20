@@ -30,7 +30,7 @@
             android:id="@+id/imageViewNoNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_thungrac"
+            android:src="@drawable/ic_no_data"
             android:visibility="invisible"
             android:emptyDatabase="@{sharedViewModel.emptyDatabase}"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView_delete"

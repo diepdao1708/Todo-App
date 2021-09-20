@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.diepdao1708.todo4.data.models.ToDoData
-import com.android.diepdao1708.todo4.databinding.DeleteItemBinding
+import com.android.diepdao1708.todo4.databinding.ThungracItemBinding
 import com.android.diepdao1708.todo4.fragments.ToDoDiffUtil
 
 class ThungRacAdapter : RecyclerView.Adapter<ThungRacAdapter.MyViewHolder>(){
 
     var thungracList = emptyList<ToDoData>()
 
-    class MyViewHolder(val binding: DeleteItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class MyViewHolder(val binding: ThungracItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(toDoData: ToDoData){
             binding.toDoData = toDoData
             binding.executePendingBindings()
@@ -21,7 +21,7 @@ class ThungRacAdapter : RecyclerView.Adapter<ThungRacAdapter.MyViewHolder>(){
         companion object{
             fun from(parent: ViewGroup) : MyViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = DeleteItemBinding.inflate(layoutInflater, parent, false)
+                val binding = ThungracItemBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }

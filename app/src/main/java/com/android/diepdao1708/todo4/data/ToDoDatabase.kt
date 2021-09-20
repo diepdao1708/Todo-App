@@ -26,7 +26,8 @@ abstract class ToDoDatabase : RoomDatabase() {
                     context.applicationContext,
                     ToDoDatabase::class.java,
                     "todo_database"
-                ).build()
+                )
+                    .build()
                 INSTANCE = instance
                 return instance
             }

@@ -74,4 +74,7 @@ dependencies {
 
     //preference
     implementation "androidx.preference:preference-ktx:1.1.0"
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

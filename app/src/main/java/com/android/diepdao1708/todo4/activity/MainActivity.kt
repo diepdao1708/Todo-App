@@ -1,18 +1,15 @@
-package com.android.diepdao1708.todo4
+package com.android.diepdao1708.todo4.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.android.diepdao1708.todo4.fragments.*
+import com.android.diepdao1708.todo4.R
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,10 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-//        setEventMenuToolbar(toolbar)
-
-
-
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)
         toggle.isDrawerIndicatorEnabled = true
@@ -58,22 +51,6 @@ class MainActivity : AppCompatActivity() {
 
         setEventDrawer(slideNavView)
     }
-
-//    // set lai su kien ->>>
-//    private fun setEventMenuToolbar(toolbar: Toolbar){
-//        toolbar.setOnMenuItemClickListener {
-//            if(it.itemId == R.id.action_menu){
-//                drawerLayout.openDrawer(GravityCompat.START)
-//                return@setOnMenuItemClickListener true
-//            }
-//            return@setOnMenuItemClickListener onOptionsItemSelected(it)
-//        }
-//    }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.toolbar_menu,menu)
-//        return true
-//    }
 
     // Co chuc nang goi lai id cua fragment dang chay
     private fun checkId(): Int{

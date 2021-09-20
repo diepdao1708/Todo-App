@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -28,7 +30,7 @@ class UpdateLoiNhacFragment : Fragment() {
     private lateinit var binding: FragmentUpdateLoiNhacBinding
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
-
+    private var time: Long = 0
     private val args by navArgs<UpdateLoiNhacFragmentArgs>()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -44,50 +46,58 @@ class UpdateLoiNhacFragment : Fragment() {
         binding.switchReminderUpdateLoiNhac.setChecked(args.currentItemLoiNhac.todo_reminder)
         if(args.currentItemLoiNhac.todo_reminder){
             binding.setTextViewTimeUpdateLoiNhac.visibility = View.VISIBLE
-            binding.setTextViewDateUpdateLoiNhac.visibility = View.VISIBLE
             binding.setTextViewTimeUpdateLoiNhac.setText(args.currentItemLoiNhac.todo_time)
-            binding.setTextViewDateUpdateLoiNhac.setText(args.currentItemLoiNhac.todo_date)
+            binding.setTextViewTimeUpdateLoiNhac.setOnClickListener {
+                val cal = Calendar.getInstance()
+                val time = TimePickerDialog.OnTimeSetListener { _ , hourOfDay, minute ->
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    val date = DatePickerDialog.OnDateSetListener { _ , year, month, dayOfMonth ->
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        Log.e("time", cal.timeInMillis.toString())
+                        time = cal.timeInMillis
+                        binding.setTextViewTimeUpdateLoiNhac.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                    }
+                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+                }
+                TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+            }
         } else {
             binding.setTextViewTimeUpdateLoiNhac.visibility = View.INVISIBLE
-            binding.setTextViewDateUpdateLoiNhac.visibility = View.INVISIBLE
         }
 
         // set sự kiện reminder
-        binding.switchReminderUpdateLoiNhac.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.switchReminderUpdateLoiNhac.setOnCheckedChangeListener { _ , isChecked ->
             if(isChecked) {
                 binding.setTextViewTimeUpdateLoiNhac.visibility = View.VISIBLE
-                binding.setTextViewDateUpdateLoiNhac.visibility = View.VISIBLE
 
                 val currentDateTime = LocalDateTime.now()
-                binding.setTextViewTimeUpdateLoiNhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")))
-
-                binding.setTextViewDateUpdateLoiNhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                binding.setTextViewTimeUpdateLoiNhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy")))
 
                 binding.setTextViewTimeUpdateLoiNhac.setOnClickListener {
                     val cal = Calendar.getInstance()
-                    val time = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val time = TimePickerDialog.OnTimeSetListener { _ , hourOfDay, minute ->
                         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         cal.set(Calendar.MINUTE, minute)
-                        binding.setTextViewTimeUpdateLoiNhac.text = SimpleDateFormat("HH:mm").format(cal.time)
+                        val date = DatePickerDialog.OnDateSetListener { _ , year, month, dayOfMonth ->
+                            cal.set(Calendar.YEAR, year)
+                            cal.set(Calendar.MONTH, month)
+                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            Log.e("time", cal.timeInMillis.toString())
+                            time = cal.timeInMillis
+                            binding.setTextViewTimeUpdateLoiNhac.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                        }
+                        context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+
                     }
                     TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
                 }
 
-                binding.setTextViewDateUpdateLoiNhac.setOnClickListener {
-                    val cal = Calendar.getInstance()
-                    val date = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, month)
-                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        binding.setTextViewDateUpdateLoiNhac.text = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(cal.getTime())
-                    }
-                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(
-                        Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
-                }
 
             } else{
                 binding.setTextViewTimeUpdateLoiNhac.visibility = View.INVISIBLE
-                binding.setTextViewDateUpdateLoiNhac.visibility = View.INVISIBLE
             }
         }
 
@@ -124,7 +134,7 @@ class UpdateLoiNhacFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTimeUpdateLoiNhac.text.toString(),
-                binding.setTextViewDateUpdateLoiNhac.text.toString(),
+                time,
                 binding.switchReminderUpdateLoiNhac.isChecked,
                 false
             )
@@ -146,7 +156,7 @@ class UpdateLoiNhacFragment : Fragment() {
                 args.currentItemLoiNhac.todo_title,
                 args.currentItemLoiNhac.todo_description,
                 args.currentItemLoiNhac.todo_time,
-                args.currentItemLoiNhac.todo_date,
+                args.currentItemLoiNhac.todo_timeInMillis,
                 args.currentItemLoiNhac.todo_reminder,
                 true
             )

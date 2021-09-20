@@ -24,7 +24,7 @@ class ToDoDiffUtil(
                 && oldList[oldItemPosition].todo_title == newList[newItemPosition].todo_time
                 && oldList[oldItemPosition].todo_description == newList[newItemPosition].todo_description
                 && oldList[oldItemPosition].todo_time == newList[newItemPosition].todo_time
-                && oldList[oldItemPosition].todo_date == newList[newItemPosition].todo_date
+                && oldList[oldItemPosition].todo_timeInMillis == newList[newItemPosition].todo_timeInMillis
                 && oldList[oldItemPosition].todo_time == newList[newItemPosition].todo_time
                 && oldList[oldItemPosition].todo_reminder == newList[newItemPosition].todo_reminder
                 && oldList[oldItemPosition].todo_garbage == newList[newItemPosition].todo_garbage

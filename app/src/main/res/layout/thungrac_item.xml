@@ -58,33 +58,10 @@
                 android:visibility="invisible"/>
             <TextView
                 android:id="@+id/textViewTime_delete"
-                android:layout_weight="10"
+                android:layout_weight="19"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{toDoData.todo_time}"
-                android:reminder="@{toDoData.todo_reminder}"
-                android:visibility="invisible"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/darkGray"
-                android:background="@drawable/time_date_background"
-                android:textSize="11sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/darkGray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:id="@+id/textViewDate_delete"
-                android:layout_weight="8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{toDoData.todo_date}"
                 android:reminder="@{toDoData.todo_reminder}"
                 android:visibility="invisible"
                 android:gravity="center"

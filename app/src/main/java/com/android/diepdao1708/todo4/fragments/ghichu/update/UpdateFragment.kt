@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -26,10 +28,9 @@ import java.util.*
 class UpdateFragment : Fragment() {
 
     private lateinit var binding: FragmentUpdateGhiChuBinding
-
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
-
+    private var time: Long = 0
     // https://developer.android.com/guide/navigation/navigation-pass-data
     private val args by navArgs<UpdateFragmentArgs>()
 
@@ -47,50 +48,57 @@ class UpdateFragment : Fragment() {
         binding.switchReminderUpdate.setChecked(args.currentItem.todo_reminder)
         if(args.currentItem.todo_reminder){
             binding.setTextViewTimeUpdate.visibility = View.VISIBLE
-            binding.setTextViewDateUpdate.visibility = View.VISIBLE
             binding.setTextViewTimeUpdate.setText(args.currentItem.todo_time)
-            binding.setTextViewDateUpdate.setText(args.currentItem.todo_date)
+            binding.setTextViewTimeUpdate.setOnClickListener {
+                val cal = Calendar.getInstance()
+                val time = TimePickerDialog.OnTimeSetListener { _ , hourOfDay, minute ->
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    val date = DatePickerDialog.OnDateSetListener { _ , year, month, dayOfMonth ->
+                        cal.set(Calendar.YEAR, year)
+                        cal.set(Calendar.MONTH, month)
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        Log.e("time", cal.timeInMillis.toString())
+                        time = cal.timeInMillis
+                        binding.setTextViewTimeUpdate.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                    }
+                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+                }
+                TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+            }
         } else {
             binding.setTextViewTimeUpdate.visibility = View.INVISIBLE
-            binding.setTextViewDateUpdate.visibility = View.INVISIBLE
         }
 
         // set sự kiện reminder
-        binding.switchReminderUpdate.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.switchReminderUpdate.setOnCheckedChangeListener { _ , isChecked ->
             if(isChecked) {
                 binding.setTextViewTimeUpdate.visibility = View.VISIBLE
-                binding.setTextViewDateUpdate.visibility = View.VISIBLE
 
                 val currentDateTime = LocalDateTime.now()
-                binding.setTextViewTimeUpdate.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")))
-
-                binding.setTextViewDateUpdate.setText(currentDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-
+                binding.setTextViewTimeUpdate.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy")))
 
                 binding.setTextViewTimeUpdate.setOnClickListener {
                     val cal = Calendar.getInstance()
-                    val time = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val time = TimePickerDialog.OnTimeSetListener { _ , hourOfDay, minute ->
                         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         cal.set(Calendar.MINUTE, minute)
-                        binding.setTextViewTimeUpdate.text = SimpleDateFormat("HH:mm").format(cal.time)
+                        val date = DatePickerDialog.OnDateSetListener { _ , year, month, dayOfMonth ->
+                            cal.set(Calendar.YEAR, year)
+                            cal.set(Calendar.MONTH, month)
+                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            Log.e("time", cal.timeInMillis.toString())
+                            time = cal.timeInMillis
+                            binding.setTextViewTimeUpdate.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                        }
+                        context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+
                     }
                     TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
                 }
 
-                binding.setTextViewDateUpdate.setOnClickListener {
-                    val cal = Calendar.getInstance()
-                    val date = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, month)
-                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        binding.setTextViewDateUpdate.text = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(cal.getTime())
-                    }
-                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
-                }
-
             } else{
                 binding.setTextViewTimeUpdate.visibility = View.INVISIBLE
-                binding.setTextViewDateUpdate.visibility = View.INVISIBLE
             }
         }
 
@@ -127,7 +135,7 @@ class UpdateFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTimeUpdate.text.toString(),
-                binding.setTextViewDateUpdate.text.toString(),
+                time,
                 binding.switchReminderUpdate.isChecked,
                 false
             )
@@ -149,7 +157,7 @@ class UpdateFragment : Fragment() {
                 args.currentItem.todo_title,
                 args.currentItem.todo_description,
                 args.currentItem.todo_time,
-                args.currentItem.todo_date,
+                args.currentItem.todo_timeInMillis,
                 args.currentItem.todo_reminder,
                 true
             )

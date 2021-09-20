@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -27,7 +28,7 @@ class AddLoiNhacFragment : Fragment() {
     private lateinit var binding : FragmentAddLoiNhacBinding
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
-
+    private var time: Long = 0
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("WrongConstant")
     override fun onCreateView(
@@ -36,41 +37,34 @@ class AddLoiNhacFragment : Fragment() {
     ): View? {
         binding = FragmentAddLoiNhacBinding.inflate(inflater, container, false)
 
-        binding.switchReminderLoinhac.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.switchReminderLoinhac.setOnCheckedChangeListener { _ , isChecked ->
             if(isChecked) {
                 binding.setTextViewTimeLoinhac.visibility = View.VISIBLE
-                binding.setTextViewDateLoinhac.visibility = View.VISIBLE
 
                 val currentDateTime = LocalDateTime.now()
-                binding.setTextViewTimeLoinhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")))
-
-                binding.setTextViewDateLoinhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                binding.setTextViewTimeLoinhac.setText(currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy")))
 
                 binding.setTextViewTimeLoinhac.setOnClickListener {
                     val cal = Calendar.getInstance()
-                    val time = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val time = TimePickerDialog.OnTimeSetListener { _ , hourOfDay, minute ->
                         cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         cal.set(Calendar.MINUTE, minute)
-                        binding.setTextViewTimeLoinhac.text = SimpleDateFormat("HH:mm").format(cal.time)
+                        val date = DatePickerDialog.OnDateSetListener { _ , year, month, dayOfMonth ->
+                            cal.set(Calendar.YEAR, year)
+                            cal.set(Calendar.MONTH, month)
+                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                            Log.e("time", cal.timeInMillis.toString())
+                            time = cal.timeInMillis
+                            binding.setTextViewTimeLoinhac.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                        }
+                        context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
+
                     }
                     TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
                 }
 
-                binding.setTextViewDateLoinhac.setOnClickListener {
-                    val cal = Calendar.getInstance()
-                    val date = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, month)
-                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                        binding.setTextViewDateLoinhac.text = SimpleDateFormat("dd/MM/yyyy", Locale.US).format(cal.getTime())
-                    }
-                    context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(
-                        Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
-                }
-
             } else{
                 binding.setTextViewTimeLoinhac.visibility = View.INVISIBLE
-                binding.setTextViewDateLoinhac.visibility = View.INVISIBLE
             }
         }
 
@@ -103,7 +97,7 @@ class AddLoiNhacFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTimeLoinhac.text.toString(),
-                binding.setTextViewDateLoinhac.text.toString(),
+                time,
                 binding.switchReminderLoinhac.isChecked,
                 false
             )
