@@ -13,7 +13,8 @@ data class ToDoData (
     var todo_title: String,
     var todo_description: String,
     var todo_time: String, // hh:mm dd/MM/yyyy
-    var todo_timeInMillis: Long, // Calendar.timeInMillis
+    var todo_RequestCode: Int,
     var todo_reminder: Boolean,
-    var todo_garbage: Boolean
+    var todo_garbage: Boolean,
+    var todo_timeInMillis: Long
 ) : Parcelable

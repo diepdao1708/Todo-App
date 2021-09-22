@@ -18,6 +18,8 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentAddLoiNhacBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
+import com.android.diepdao1708.todo4.service.AddAlarm
+import com.android.diepdao1708.todo4.utils.RandomUtil
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -28,15 +30,16 @@ class AddLoiNhacFragment : Fragment() {
     private lateinit var binding : FragmentAddLoiNhacBinding
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
+    lateinit var alarmService: AddAlarm
     private var time: Long = 0
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("WrongConstant")
+    @SuppressLint("WrongConstant", "UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddLoiNhacBinding.inflate(inflater, container, false)
-
+        alarmService = AddAlarm(context!!)
         binding.switchReminderLoinhac.setOnCheckedChangeListener { _ , isChecked ->
             if(isChecked) {
                 binding.setTextViewTimeLoinhac.visibility = View.VISIBLE
@@ -78,6 +81,7 @@ class AddLoiNhacFragment : Fragment() {
         inflater.inflate(R.menu.add_menu, menu)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_save){
             insertDataToDatabase()
@@ -86,6 +90,7 @@ class AddLoiNhacFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun insertDataToDatabase() {
         val title = binding.editTextTitleLoinhac.text.toString()
         val description = binding.editTextDescriptionLoinhac.text.toString()
@@ -97,12 +102,13 @@ class AddLoiNhacFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTimeLoinhac.text.toString(),
-                time,
+                RandomUtil.getRandomInt(),
                 binding.switchReminderLoinhac.isChecked,
-                false
+                false,
+                time
             )
-            Log.d("switch", newData.todo_reminder.toString())
             toDoViewModel.insertData(newData)
+            if (binding.switchReminderLoinhac.isChecked) alarmService.setExactAlarm(time, newData)
             Toast.makeText(requireContext(), "Thêm lời nhắc thành công!", Toast.LENGTH_LONG).show()
 
             // Navigate back

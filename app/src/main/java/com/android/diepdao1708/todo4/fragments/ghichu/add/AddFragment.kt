@@ -21,6 +21,7 @@ import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentAddGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
 import com.android.diepdao1708.todo4.service.AddAlarm
+import com.android.diepdao1708.todo4.utils.RandomUtil
 import kotlinx.android.synthetic.main.fragment_add_ghi_chu.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -58,7 +59,6 @@ class AddFragment : Fragment() {
                             cal.set(Calendar.YEAR, year)
                             cal.set(Calendar.MONTH, month)
                             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                            Log.e("time", cal.timeInMillis.toString())
                             time = cal.timeInMillis
                             binding.setTextViewTime.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                         }
@@ -103,13 +103,14 @@ class AddFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTime.text.toString(),
-                time,
+                RandomUtil.getRandomInt(),
                 binding.switchReminder.isChecked,
-                false
+                false,
+                time
             )
+            Log.e("id", newData.todo_id.toString())
             toDoViewModel.insertData(newData)
-            Log.e("time", time.toString())
-            if (switchReminder.isChecked) alarmService.setExactAlarm(time, newData)
+            if (binding.switchReminder.isChecked) alarmService.setExactAlarm(time, newData)
             Toast.makeText(requireContext(), "Thêm ghi chú thành công!", Toast.LENGTH_LONG).show()
 
             // Navigate back

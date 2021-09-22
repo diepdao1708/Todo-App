@@ -1,8 +1,11 @@
 package com.android.diepdao1708.todo4.fragments.thungrac
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +21,7 @@ import com.android.diepdao1708.todo4.fragments.SharedViewModel
 import com.android.diepdao1708.todo4.fragments.SwipeToDelete
 import com.android.diepdao1708.todo4.fragments.SwipeToDeleteRight
 import com.android.diepdao1708.todo4.fragments.thungrac.adapter.ThungRacAdapter
+import com.android.diepdao1708.todo4.service.AddAlarm
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -27,13 +31,16 @@ class ThungRacFragment : Fragment() {
     private val adapter: ThungRacAdapter by lazy { ThungRacAdapter() }
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
+    lateinit var alarmService: AddAlarm
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentThungRacBinding.inflate(inflater, container, false)
+        alarmService = AddAlarm(context!!)
         binding.lifecycleOwner = this
         sharedViewModel.also { binding.sharedViewModel = it }
 
@@ -104,11 +111,13 @@ class ThungRacFragment : Fragment() {
     // Đưa từ thùng rác vào ghi chú
     private fun swipeToDeleteRight(recyclerView: RecyclerView){
         val swipeToDeleteCallback = object : SwipeToDeleteRight(){
+            @RequiresApi(Build.VERSION_CODES.KITKAT)
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val deletedItem = adapter.thungracList[viewHolder.adapterPosition]
 
                 deletedItem.todo_garbage = false
                 toDoViewModel.updateData(deletedItem)
+                if (deletedItem.todo_reminder) alarmService.setExactAlarm(deletedItem.todo_timeInMillis, deletedItem)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
 
                 //Restore Deleted Item
@@ -126,6 +135,7 @@ class ThungRacFragment : Fragment() {
         )
         snackbar.setAction("Hoàn tác") {
             deletedItem.todo_garbage = true
+            if (deletedItem.todo_reminder) alarmService.cancelAlarm(deletedItem.todo_RequestCode)
             toDoViewModel.updateData(deletedItem)
         }
         snackbar.show()

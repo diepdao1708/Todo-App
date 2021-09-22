@@ -1,5 +1,6 @@
 package com.android.diepdao1708.todo4.fragments.loinhac.update
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -19,6 +20,8 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentUpdateLoiNhacBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
+import com.android.diepdao1708.todo4.service.AddAlarm
+import com.android.diepdao1708.todo4.utils.RandomUtil
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,14 +34,17 @@ class UpdateLoiNhacFragment : Fragment() {
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
     private var time: Long = 0
+    lateinit var alarmService: AddAlarm
     private val args by navArgs<UpdateLoiNhacFragmentArgs>()
 
+    @SuppressLint("UseRequireInsteadOfGet")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUpdateLoiNhacBinding.inflate(inflater, container, false)
+        alarmService = AddAlarm(context!!)
         binding.editTextUpdateTitleLoiNhac.setText(args.currentItemLoiNhac.todo_title)
         binding.editTextUpdateDescriptionLoiNhac.setText(args.currentItemLoiNhac.todo_description)
 
@@ -111,6 +117,7 @@ class UpdateLoiNhacFragment : Fragment() {
         inflater.inflate(R.menu.update_menu, menu)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_update_save -> {
@@ -123,9 +130,18 @@ class UpdateLoiNhacFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun updateData(){
         val title = binding.editTextUpdateTitleLoiNhac.text.toString()
         val description = binding.editTextUpdateDescriptionLoiNhac.text.toString()
+
+        if (args.currentItemLoiNhac.todo_reminder && !binding.switchReminderUpdateLoiNhac.isChecked){
+            alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
+        }
+
+        if (binding.switchReminderUpdateLoiNhac.isChecked && binding.setTextViewTimeUpdateLoiNhac.text.toString() != args.currentItemLoiNhac.todo_time){
+            alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
+        }
 
         val validation = sharedViewModel.verifDataFromUser(description)
         if(validation) {
@@ -134,11 +150,13 @@ class UpdateLoiNhacFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTimeUpdateLoiNhac.text.toString(),
-                time,
+                RandomUtil.getRandomInt(),
                 binding.switchReminderUpdateLoiNhac.isChecked,
-                false
+                false,
+                time
             )
             toDoViewModel.updateData(updateData)
+            if (binding.switchReminderUpdateLoiNhac.isChecked) alarmService.setExactAlarm(time, updateData)
             Toast.makeText(requireContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(R.id.action_updateLoiNhacFragment_to_loiNhacFragment)
@@ -156,11 +174,13 @@ class UpdateLoiNhacFragment : Fragment() {
                 args.currentItemLoiNhac.todo_title,
                 args.currentItemLoiNhac.todo_description,
                 args.currentItemLoiNhac.todo_time,
-                args.currentItemLoiNhac.todo_timeInMillis,
+                args.currentItemLoiNhac.todo_RequestCode,
                 args.currentItemLoiNhac.todo_reminder,
-                true
+                true,
+                args.currentItemLoiNhac.todo_timeInMillis
             )
             toDoViewModel.updateData(deletedData)
+            if (args.currentItemLoiNhac.todo_reminder) alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
             Toast.makeText(requireContext(), "Đã chuyển vào thùng rác!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateLoiNhacFragment_to_loiNhacFragment)
         }

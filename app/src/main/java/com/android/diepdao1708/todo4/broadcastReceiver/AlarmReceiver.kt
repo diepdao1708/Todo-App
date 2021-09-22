@@ -13,7 +13,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        val timeInMillis = intent.getLongExtra(Constants.EXTRA_EXACT_ALARM_TIME, 0L)
         when (intent.action) {
             Constants.ACTION_SET_EXACT -> {
                 startAlarmService(context, intent)
@@ -24,6 +23,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
     private fun startAlarmService(context: Context, intent: Intent){
         var intentService = Intent(context, AlarmService::class.java)
+        intentService.putExtra(Constants.TITLE, intent.getStringExtra(Constants.TITLE))
+        intentService.putExtra(Constants.DESCRIPTION, intent.getStringExtra(Constants.DESCRIPTION))
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             context.startForegroundService(intentService)
         }
@@ -31,8 +32,5 @@ class AlarmReceiver : BroadcastReceiver() {
             context.startService(intentService)
         }
     }
-
-    private fun convertDate(timeInMillis: Long): String =
-        DateFormat.format("dd/MM/yyyy hh:mm:ss", timeInMillis).toString()
 
 }

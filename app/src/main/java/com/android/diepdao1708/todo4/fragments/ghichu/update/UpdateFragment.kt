@@ -1,5 +1,6 @@
 package com.android.diepdao1708.todo4.fragments.ghichu.update
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Build
@@ -19,11 +20,11 @@ import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
 import com.android.diepdao1708.todo4.databinding.FragmentUpdateGhiChuBinding
 import com.android.diepdao1708.todo4.fragments.SharedViewModel
-import java.text.SimpleDateFormat
+import com.android.diepdao1708.todo4.service.AddAlarm
+import com.android.diepdao1708.todo4.utils.RandomUtil
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-
 
 class UpdateFragment : Fragment() {
 
@@ -31,9 +32,11 @@ class UpdateFragment : Fragment() {
     private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel: SharedViewModel by viewModels<SharedViewModel>()
     private var time: Long = 0
+    lateinit var alarmService: AddAlarm
     // https://developer.android.com/guide/navigation/navigation-pass-data
     private val args by navArgs<UpdateFragmentArgs>()
 
+    @SuppressLint("UseRequireInsteadOfGet")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,7 @@ class UpdateFragment : Fragment() {
     ): View? {
 
         binding = FragmentUpdateGhiChuBinding.inflate(inflater, container, false)
+        alarmService = AddAlarm(context!!)
         binding.editTextUpdateTitle.setText(args.currentItem.todo_title)
         binding.editTextUpdateDescription.setText(args.currentItem.todo_description)
 
@@ -112,6 +116,7 @@ class UpdateFragment : Fragment() {
         inflater.inflate(R.menu.update_menu, menu)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_update_save -> {
@@ -124,9 +129,16 @@ class UpdateFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun updateData(){
         val title = binding.editTextUpdateTitle.text.toString()
         val description = binding.editTextUpdateDescription.text.toString()
+        if ( args.currentItem.todo_reminder && !binding.switchReminderUpdate.isChecked) {
+            alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
+        }
+        if (binding.switchReminderUpdate.isChecked && binding.setTextViewTimeUpdate.text.toString() != args.currentItem.todo_time){
+            alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
+        }
 
         val validation = sharedViewModel.verifDataFromUser(description)
         if(validation) {
@@ -135,11 +147,13 @@ class UpdateFragment : Fragment() {
                 title,
                 description,
                 binding.setTextViewTimeUpdate.text.toString(),
-                time,
+                RandomUtil.getRandomInt(),
                 binding.switchReminderUpdate.isChecked,
-                false
+                false,
+                time
             )
             toDoViewModel.updateData(updateData)
+            if (binding.switchReminderUpdate.isChecked) alarmService.setExactAlarm(time, updateData)
             Toast.makeText(requireContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(R.id.action_updateFragment_to_ghiChuFragment)
@@ -157,11 +171,13 @@ class UpdateFragment : Fragment() {
                 args.currentItem.todo_title,
                 args.currentItem.todo_description,
                 args.currentItem.todo_time,
-                args.currentItem.todo_timeInMillis,
+                args.currentItem.todo_RequestCode,
                 args.currentItem.todo_reminder,
-                true
+                true,
+                args.currentItem.todo_timeInMillis
             )
             toDoViewModel.updateData(deletedData)
+            if (args.currentItem.todo_reminder) alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
             Toast.makeText(requireContext(), "Đã chuyển vào thùng rác!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateFragment_to_ghiChuFragment)
         }

@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.android.diepdao1708.todo4.broadcastReceiver.AlarmReceiver
 import com.android.diepdao1708.todo4.data.models.ToDoData
@@ -16,18 +17,25 @@ class AddAlarm (private val context: Context){
     private val alarmManager: AlarmManager =
         context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+    fun cancelAlarm(reCode: Int){
+        val intent = getIntent().apply { action = Constants.ACTION_SET_EXACT }
+        val pendingIntent = PendingIntent.getBroadcast(context, reCode, intent, 0)
+        alarmManager.cancel(pendingIntent)
+    }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    fun setExactAlarm(timeInMillis: Long, todoData: ToDoData){ // gửi todoData -> ReminderActivity -> AlarmService -> ReminderActivity
+    fun setExactAlarm(timeInMillis: Long, todoData: ToDoData){ // gửi todoData -> AlarmReceiver -> AlarmService -> ReminderActivity
         setAlarm(
             timeInMillis,
             getPendingIntent(
                 getIntent().apply {
                     action = Constants.ACTION_SET_EXACT
-                    putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
-                }
+                    putExtra(Constants.TITLE, todoData.todo_title)
+                    putExtra(Constants.DESCRIPTION, todoData.todo_description)
+                }, todoData
             )
         )
+        Log.e("reCode", RandomUtil.getRandomInt().toString())
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -49,16 +57,14 @@ class AddAlarm (private val context: Context){
         }
     }
 
-    private fun getPendingIntent(intent: Intent) =
+    private fun getPendingIntent(intent: Intent, todoData: ToDoData) =
         PendingIntent.getBroadcast(
             context,
-            getRandomRequestCode(),
+            todoData.todo_RequestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
     private fun getIntent() = Intent(context, AlarmReceiver::class.java)
-
-    private fun getRandomRequestCode() = RandomUtil.getRandomInt()
 
 }
