@@ -35,7 +35,11 @@
         android:id="@+id/nhanFragment"
         android:name="com.android.diepdao1708.todo4.fragments.nhan.NhanFragment"
         android:label="fragment_nhan"
-        tools:layout="@layout/fragment_nhan" />
+        tools:layout="@layout/fragment_nhan" >
+        <action
+            android:id="@+id/action_nhanFragment_to_itemNhanFragment"
+            app:destination="@id/itemNhanFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/thungRacFragment"
@@ -110,6 +114,20 @@
             app:destination="@id/loiNhacFragment"
             app:popUpTo="@id/loiNhacFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemNhanFragment"
+        android:name="com.android.diepdao1708.todo4.fragments.nhan.ItemNhanFragment"
+        android:label="fragment_item_nhan"
+        tools:layout="@layout/fragment_item_nhan" >
+        <action
+            android:id="@+id/action_itemNhanFragment_to_nhanFragment"
+            app:destination="@id/nhanFragment"
+            app:popUpTo="@id/nhanFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="currentItemTitle"
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -15,6 +15,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         emptyDatabase.value = toDoData.isEmpty()
     }
 
+    fun checkIfDataEmpty(toDoData: List<String>){
+        emptyDatabase.value = toDoData.isEmpty()
+    }
+
     fun verifDataFromUser(desciption: String) : Boolean {
         return if(TextUtils.isEmpty(desciption)){
             return false

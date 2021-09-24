@@ -1,32 +1,40 @@
 package com.android.diepdao1708.todo4.fragments.nhan.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.diepdao1708.todo4.databinding.NhanItemBinding
 
-class NhanAdapter: RecyclerView.Adapter<NhanAdapter.MyViewHolder>() {
+class NhanAdapter (private val listener: OnItemClickListener): RecyclerView.Adapter<NhanAdapter.MyViewHolder>() {
 
     var nhanList = emptyList<String>()
 
-    class MyViewHolder(val binding: NhanItemBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(val binding: NhanItemBinding) : RecyclerView.ViewHolder(binding.root),
+    View.OnClickListener{
 
         fun bind(title: String){
             binding.textViewTitleNhan.text = title
         }
 
-        companion object{
-            fun from(parent: ViewGroup) : MyViewHolder{
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = NhanItemBinding.inflate(layoutInflater, parent, false)
-                return MyViewHolder(binding)
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION){
+                listener.onItemClick(position, binding.textViewTitleNhan.text.toString())
             }
         }
     }
+    interface OnItemClickListener{
+        fun onItemClick(position: Int, title: String)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder.from(parent)
+        return MyViewHolder(NhanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

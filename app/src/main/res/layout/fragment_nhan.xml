@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
-<!--        <variable-->
-<!--            name="sharedViewModel"-->
-<!--            type="com.android.diepdao1708.todo4.fragments.SharedViewModel" />-->
-<!--    </data>-->
+    <data>
+        <variable
+            name="sharedViewModel"
+            type="com.android.diepdao1708.todo4.fragments.SharedViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,31 +27,31 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/nhan_item"/>
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageViewNoData_nhan"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_no_data"-->
-<!--            android:visibility="invisible"-->
-<!--            android:emptyDatabase="@{sharedViewModel.emptyDatabase}"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/recyclerView_nhan"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/recyclerView_nhan"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/recyclerView_nhan"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/recyclerView_nhan"-->
-<!--            app:layout_constraintVertical_bias="0.32999998" />-->
+        <ImageView
+            android:id="@+id/imageViewNoData_nhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_no_data"
+            android:visibility="invisible"
+            android:emptyDatabase="@{sharedViewModel.emptyDatabase}"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerView_nhan"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerView_nhan"
+            app:layout_constraintStart_toStartOf="@+id/recyclerView_nhan"
+            app:layout_constraintTop_toTopOf="@+id/recyclerView_nhan"
+            app:layout_constraintVertical_bias="0.32999998" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/textViewNoData_nhan"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:alpha="0.5"-->
-<!--            android:text="Nhãn của bạn sẽ xuất hiện ở đây"-->
-<!--            android:textSize="18sp"-->
-<!--            android:visibility="invisible"-->
-<!--            android:emptyDatabase="@{sharedViewModel.emptyDatabase}"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/recyclerView_nhan"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/imageViewNoData_nhan" />-->
+        <TextView
+            android:id="@+id/textViewNoData_nhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:alpha="0.5"
+            android:text="Nhãn của bạn sẽ xuất hiện ở đây"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            android:emptyDatabase="@{sharedViewModel.emptyDatabase}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/recyclerView_nhan"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewNoData_nhan" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
