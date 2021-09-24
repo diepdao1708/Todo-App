@@ -19,6 +19,12 @@ interface ToDoDAO {
     @Query("SELECT * FROM todo_table WHERE todo_reminder == 1 and todo_garbage == 0")
     fun getLoiNhacData(): LiveData<List<ToDoData>>
 
+    @Query("SELECT DISTINCT todo_title FROM todo_table WHERE todo_garbage == 0 and todo_title != :key")
+    fun getNhanData(key: String): LiveData<List<String>>
+
+    @Query("SELECT * FROM todo_table Where todo_garbage == 0 and todo_title == :key")
+    fun getItemNhanData(key: String): LiveData<List<ToDoData>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)
 

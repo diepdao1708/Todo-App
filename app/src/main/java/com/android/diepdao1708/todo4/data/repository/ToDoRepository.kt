@@ -12,6 +12,10 @@ class ToDoRepository(private val toDoDAO: ToDoDAO) {
 
     val getLoiNhacData: LiveData<List<ToDoData>> = toDoDAO.getLoiNhacData()
 
+    val getNhanData: LiveData<List<String>> = toDoDAO.getNhanData("")
+
+    fun getItemNhanData(key: String) : LiveData<List<ToDoData>> = toDoDAO.getItemNhanData(key)
+
     suspend fun insertData(toDoData: ToDoData){
         toDoDAO.insertData(toDoData)
     }

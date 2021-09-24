@@ -5,18 +5,44 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.diepdao1708.todo4.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.android.diepdao1708.todo4.data.viewmodel.ToDoViewModel
+import com.android.diepdao1708.todo4.databinding.FragmentNhanBinding
+import com.android.diepdao1708.todo4.fragments.SharedViewModel
+import com.android.diepdao1708.todo4.fragments.nhan.adapter.NhanAdapter
 
 class NhanFragment : Fragment() {
 
+    private lateinit var binding: FragmentNhanBinding
+    private val toDoViewModel: ToDoViewModel by viewModels<ToDoViewModel>()
+    private val adapter: NhanAdapter by lazy { NhanAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nhan, container, false)
+        binding = FragmentNhanBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+
+        //Setup recyclerview
+        setUpRecyclerView()
+
+        //Observe LiveData
+        toDoViewModel.getNhanData.observe(viewLifecycleOwner, Observer { data ->
+            adapter.setData(data)
+        })
+
+
+        return binding.root
     }
 
+    private fun setUpRecyclerView() {
+        val recyclerView = binding.recyclerViewNhan
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+    }
 
 }

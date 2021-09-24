@@ -20,6 +20,8 @@ class ToDoViewModel (application: Application) : AndroidViewModel(application){
 
     val getLoiNhacData: LiveData<List<ToDoData>> = repository.getLoiNhacData
 
+    val getNhanData: LiveData<List<String>> = repository.getNhanData
+
     fun insertData(toDoData: ToDoData){
         viewModelScope.launch(Dispatchers.IO){
             repository.insertData(toDoData)
