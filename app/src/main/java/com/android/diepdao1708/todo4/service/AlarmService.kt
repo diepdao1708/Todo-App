@@ -8,7 +8,7 @@ import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.android.diepdao1708.todo4.R
-import com.android.diepdao1708.todo4.activity.App.Companion.CHANNEL_ID
+import com.android.diepdao1708.todo4.notification.App.Companion.CHANNEL_ID
 import com.android.diepdao1708.todo4.activity.ReminderActivity
 import com.android.diepdao1708.todo4.utils.Constants
 

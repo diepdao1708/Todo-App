@@ -1,4 +1,4 @@
-package com.android.diepdao1708.todo4.activity
+package com.android.diepdao1708.todo4.notification
 
 import android.app.Application
 import android.app.NotificationChannel
