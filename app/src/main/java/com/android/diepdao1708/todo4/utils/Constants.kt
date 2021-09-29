@@ -5,5 +5,7 @@ object Constants {
 
     const val DESCRIPTION = "DESCRIPTION"
 
+    const val REQUESTCODE = "REQUESTCODE"
+
     const val ACTION_SET_EXACT = "ACTION_SET_EXTRA"
 }

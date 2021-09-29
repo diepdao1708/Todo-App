@@ -23,6 +23,7 @@ import com.android.diepdao1708.todo4.fragments.SwipeToDeleteRight
 import com.android.diepdao1708.todo4.fragments.thungrac.adapter.ThungRacAdapter
 import com.android.diepdao1708.todo4.service.AddAlarm
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 
 class ThungRacFragment : Fragment() {
@@ -90,7 +91,7 @@ class ThungRacFragment : Fragment() {
         val swipeToDeleteCallback = object : SwipeToDelete(){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val deletedItem = adapter.thungracList[viewHolder.adapterPosition]
-                val builder = AlertDialog.Builder(requireContext())
+                val builder = AlertDialog.Builder(requireContext(), R.style.AlertDialog)
                 builder.setPositiveButton("Có"){  _, _ ->
                     toDoViewModel.deleteData(deletedItem)
                     Toast.makeText(requireContext(), "Xóa thành công!", Toast.LENGTH_SHORT).show()
@@ -117,7 +118,7 @@ class ThungRacFragment : Fragment() {
 
                 deletedItem.todo_garbage = false
                 toDoViewModel.updateData(deletedItem)
-                if (deletedItem.todo_reminder) alarmService.setExactAlarm(deletedItem.todo_timeInMillis, deletedItem)
+                if (deletedItem.todo_reminder && Calendar.getInstance().timeInMillis <= deletedItem.todo_timeInMillis) alarmService.setExactAlarm(deletedItem.todo_timeInMillis, deletedItem)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
 
                 //Restore Deleted Item
@@ -142,7 +143,7 @@ class ThungRacFragment : Fragment() {
     }
 
     private fun deleteAllData(){
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext(), R.style.AlertDialog)
         builder.setPositiveButton("Có"){  _, _ ->
             toDoViewModel.deleteAllData()
             Toast.makeText(requireContext(), "Xóa thành công!", Toast.LENGTH_SHORT).show()

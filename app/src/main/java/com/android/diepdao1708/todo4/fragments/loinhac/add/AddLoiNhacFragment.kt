@@ -58,7 +58,7 @@ class AddLoiNhacFragment : Fragment() {
                             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                             Log.e("time", cal.timeInMillis.toString())
                             time = cal.timeInMillis
-                            binding.setTextViewTimeLoinhac.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                            binding.setTextViewTimeLoinhac.text = DateFormat.format("HH:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                         }
                         context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
 

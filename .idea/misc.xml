@@ -3,44 +3,63 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_alarm.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_back.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_background_ghichu.xml" value="0.16111111111111112" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_background_loinhac.xml" value="0.25092592592592594" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_background_nhan.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_background_thungrac.xml" value="0.2755208333333333" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_loinhac.xml" value="0.22037037037037038" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_nhan.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_no_data.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_ring_alarm.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_search.xml" value="0.22037037037037038" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_sort.xml" value="0.22037037037037038" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/ic_thungrac.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/item_time_background.xml" value="0.2755208333333333" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/row_item_background.xml" value="0.21851851851851853" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/drawable/time_date_background.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/font/roboto_slab.xml" value="0.28958333333333336" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout-v17/fragment_time_date.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/activity_main.xml" value="0.15185185185185185" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/activity_reminder.xml" value="0.1" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/activity_reminder.xml" value="0.264" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/delete_item.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add.xml" value="0.264" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add2.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add_ghi_chu.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add_ghi_chu.xml" value="0.264" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add_ghichu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_add_loi_nhac.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_ghi_chu.xml" value="0.128" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_ghi_chu.xml" value="0.16" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_item_nhan.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_loi_nhac.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_loi_nhac.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_nhan.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_thung_rac.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_time_date.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update.xml" value="0.16" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update_ghi_chu.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update_loi_nhac.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/ghichu_item.xml" value="0.1" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/fragment_update_loi_nhac.xml" value="0.1" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/ghichu_item.xml" value="0.4" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/header_main.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/item.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/loinhac_item.xml" value="0.259375" />
-        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/nhan_item.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/loinhac_item.xml" value="0.1" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/nhan_item.xml" value="0.4" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/recyclerview_item.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/row_item.xml" value="0.1" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/layout/thungrac_item.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/add_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/ghi_chu_menu.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/nav_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/thung_rac_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/time_date_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/toolbar_menu.xml" value="0.259375" />
         <entry key="..\:/Kotlin/todo4/app/src/main/res/menu/update_menu.xml" value="0.259375" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/mipmap-anydpi-v26/ic_app.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/mipmap-anydpi-v26/ic_app_round.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/mipmap-anydpi-v26/ic_icon.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2755208333333333" />
+        <entry key="..\:/Kotlin/todo4/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1675925925925926" />
       </map>
     </option>
   </component>

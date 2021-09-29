@@ -14,19 +14,29 @@
             android:id="@+id/linearLayoutUpdateLoiNhac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="horizontal"
             android:weightSum="10"
-            tools:ignore="MissingConstraints" >
+            android:paddingStart="24dp"
+            tools:ignore="MissingConstraints,RtlCompat" >
             <TextView
                 android:layout_width="wrap_content"
+                android:text="Đặt lời nhắc"
+                android:textColor="@color/gray_text"
+                android:fontFamily="@font/roboto_slab"
+                android:textSize="18sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"/>
+                android:layout_weight="2"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/setTextViewTimeUpdateLoiNhac"
+                android:padding="5dp"
                 android:text="07:00"
+                android:textColor="@color/white_text"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_slab"
                 android:background="@drawable/time_date_background"
                 android:visibility="invisible"
                 android:gravity="center"
@@ -35,6 +45,7 @@
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchReminderUpdateLoiNhac"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -44,16 +55,19 @@
             android:id="@+id/editTextUpdateTitleLoiNhac"
             android:layout_width="0dp"
             android:layout_height="60dp"
+            android:background="@android:color/transparent"
             android:ems="10"
+            android:hint="Tiêu đề"
+            android:textSize="22sp"
+            android:textColorHint="@color/gray_text"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:textColor="@color/white_text"
+            android:inputType="textPersonName"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
-            android:inputType="textPersonName"
-            android:hint="Tiêu đề"
-            android:text=""
-            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutUpdateLoiNhac"/>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutUpdateLoiNhac" />
 
 
         <EditText
@@ -64,10 +78,13 @@
             android:ems="10"
             android:gravity="top|start"
             android:hint="Ghi chú"
+            android:textSize="18sp"
+            android:textColor="@color/white_text"
+            android:textColorHint="@color/gray_text"
+            android:fontFamily="@font/roboto_slab"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:paddingTop="16dp"
-            android:text=""
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

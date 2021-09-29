@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi
 import com.android.diepdao1708.todo4.broadcastReceiver.AlarmReceiver
 import com.android.diepdao1708.todo4.data.models.ToDoData
 import com.android.diepdao1708.todo4.utils.Constants
-import com.android.diepdao1708.todo4.utils.RandomUtil
 
 class AddAlarm (private val context: Context){
 
@@ -26,16 +25,17 @@ class AddAlarm (private val context: Context){
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun setExactAlarm(timeInMillis: Long, todoData: ToDoData){ // gửi todoData -> AlarmReceiver -> AlarmService -> ReminderActivity
         setAlarm(
-            timeInMillis,
+            todoData.todo_timeInMillis,
             getPendingIntent(
                 getIntent().apply {
                     action = Constants.ACTION_SET_EXACT
                     putExtra(Constants.TITLE, todoData.todo_title)
                     putExtra(Constants.DESCRIPTION, todoData.todo_description)
+                    putExtra(Constants.REQUESTCODE, todoData.todo_RequestCode.toString())
+                    Log.e("time_addAlarm", timeInMillis.toString())
                 }, todoData
             )
         )
-        Log.e("reCode", RandomUtil.getRandomInt().toString())
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)

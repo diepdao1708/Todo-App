@@ -31,14 +31,16 @@
             android:id="@+id/imageViewNoData_nhan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_no_data"
+            android:src="@drawable/ic_background_nhan"
+            android:tint="@color/gray_text"
             android:visibility="invisible"
             android:emptyDatabase="@{sharedViewModel.emptyDatabase}"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView_nhan"
             app:layout_constraintEnd_toEndOf="@+id/recyclerView_nhan"
             app:layout_constraintStart_toStartOf="@+id/recyclerView_nhan"
             app:layout_constraintTop_toTopOf="@+id/recyclerView_nhan"
-            app:layout_constraintVertical_bias="0.32999998" />
+            app:layout_constraintVertical_bias="0.32999998"
+            tools:ignore="UseAppTint" />
 
         <TextView
             android:id="@+id/textViewNoData_nhan"
@@ -46,7 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:alpha="0.5"
-            android:text="Nhãn của bạn sẽ xuất hiện ở đây"
+            android:text="Không có ghi chú nào có nhãn"
+            android:textColor="@color/gray_text"
+            android:fontFamily="@font/roboto_slab"
             android:textSize="18sp"
             android:visibility="invisible"
             android:emptyDatabase="@{sharedViewModel.emptyDatabase}"

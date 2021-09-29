@@ -64,7 +64,7 @@ class UpdateLoiNhacFragment : Fragment() {
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                         Log.e("time", cal.timeInMillis.toString())
                         time = cal.timeInMillis
-                        binding.setTextViewTimeUpdateLoiNhac.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                        binding.setTextViewTimeUpdateLoiNhac.text = DateFormat.format("HH:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                     }
                     context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
                 }
@@ -93,7 +93,7 @@ class UpdateLoiNhacFragment : Fragment() {
                             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                             Log.e("time", cal.timeInMillis.toString())
                             time = cal.timeInMillis
-                            binding.setTextViewTimeUpdateLoiNhac.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                            binding.setTextViewTimeUpdateLoiNhac.text = DateFormat.format("HH:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                         }
                         context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
 
@@ -135,12 +135,8 @@ class UpdateLoiNhacFragment : Fragment() {
         val title = binding.editTextUpdateTitleLoiNhac.text.toString()
         val description = binding.editTextUpdateDescriptionLoiNhac.text.toString()
 
-        if (args.currentItemLoiNhac.todo_reminder && !binding.switchReminderUpdateLoiNhac.isChecked){
-            alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
-        }
-
-        if (binding.switchReminderUpdateLoiNhac.isChecked && binding.setTextViewTimeUpdateLoiNhac.text.toString() != args.currentItemLoiNhac.todo_time){
-            alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
+        if (binding.switchReminderUpdateLoiNhac.isChecked && binding.setTextViewTimeUpdateLoiNhac.text.toString() == args.currentItemLoiNhac.todo_time){
+            time = args.currentItemLoiNhac.todo_timeInMillis
         }
 
         val validation = sharedViewModel.verifDataFromUser(description)
@@ -156,7 +152,14 @@ class UpdateLoiNhacFragment : Fragment() {
                 time
             )
             toDoViewModel.updateData(updateData)
-            if (binding.switchReminderUpdateLoiNhac.isChecked) alarmService.setExactAlarm(time, updateData)
+            if (args.currentItemLoiNhac.todo_reminder && !binding.switchReminderUpdateLoiNhac.isChecked){
+                alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
+            }
+
+            if (binding.switchReminderUpdateLoiNhac.isChecked && binding.setTextViewTimeUpdateLoiNhac.text.toString() != args.currentItemLoiNhac.todo_time){
+                alarmService.cancelAlarm(args.currentItemLoiNhac.todo_RequestCode)
+                alarmService.setExactAlarm(time, updateData)
+            }
             Toast.makeText(requireContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(R.id.action_updateLoiNhacFragment_to_loiNhacFragment)

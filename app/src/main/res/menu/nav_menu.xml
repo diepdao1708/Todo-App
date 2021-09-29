@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_ghichu"
+            android:id="@+id/ghiChuFragment"
             android:icon="@drawable/ic_ghichu"
             android:title="Ghi chú" />
         <item
-            android:id="@+id/nav_loinhac"
+            android:id="@+id/loiNhacFragment"
             android:icon="@drawable/ic_loinhac"
             android:title="Lời nhắc" />
         <item
-            android:id="@+id/nav_nhan"
+            android:id="@+id/nhanFragment"
             android:icon="@drawable/ic_nhan"
             android:title="Nhãn" />
         <item
-            android:id="@+id/nav_thungrac"
+            android:id="@+id/thungRacFragment"
             android:icon="@drawable/ic_thungrac"
             android:title="Thùng rác" />
     </group>

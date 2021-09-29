@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.text.format.DateFormat
+import android.util.Log
 import com.android.diepdao1708.todo4.service.AlarmService
 import com.android.diepdao1708.todo4.utils.Constants
 
@@ -25,6 +26,7 @@ class AlarmReceiver : BroadcastReceiver() {
         var intentService = Intent(context, AlarmService::class.java)
         intentService.putExtra(Constants.TITLE, intent.getStringExtra(Constants.TITLE))
         intentService.putExtra(Constants.DESCRIPTION, intent.getStringExtra(Constants.DESCRIPTION))
+        intentService.putExtra(Constants.REQUESTCODE, intent.getStringExtra(Constants.REQUESTCODE))
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             context.startForegroundService(intentService)
         }

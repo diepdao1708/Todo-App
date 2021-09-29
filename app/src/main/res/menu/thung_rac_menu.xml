@@ -4,5 +4,6 @@
 
     <item
         android:id="@+id/menu_delete"
-        android:title="Xóa tất cả"/>
+        android:title="Xóa sạch thùng rác"
+        app:showAsAction="never"/>
 </menu>

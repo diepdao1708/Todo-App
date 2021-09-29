@@ -3,6 +3,7 @@ package com.android.diepdao1708.todo4.fragments.ghichu
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.annotation.RequiresApi
@@ -23,6 +24,7 @@ import com.android.diepdao1708.todo4.fragments.ghichu.adapter.GhiChuAdapter
 import com.android.diepdao1708.todo4.service.AddAlarm
 import com.android.diepdao1708.todo4.utils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 
 class GhiChuFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -104,15 +106,17 @@ class GhiChuFragment : Fragment(), SearchView.OnQueryTextListener {
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
         val snackbar = Snackbar.make(
             view, "Đã chuyển vào thùng rác!",
             Snackbar.LENGTH_LONG
         )
+        snackbar.setBackgroundTint(R.color.black_card)
         snackbar.setAction("Hoàn tác") {
             deletedItem.todo_garbage = false
-            if (deletedItem.todo_reminder) alarmService.setExactAlarm(deletedItem.todo_timeInMillis, deletedItem)
+            if (deletedItem.todo_reminder && Calendar.getInstance().timeInMillis <= deletedItem.todo_timeInMillis) alarmService.setExactAlarm(deletedItem.todo_timeInMillis, deletedItem)
             toDoViewModel.updateData(deletedItem)
         }
         snackbar.show()

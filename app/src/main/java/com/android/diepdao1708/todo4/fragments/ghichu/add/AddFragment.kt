@@ -44,6 +44,7 @@ class AddFragment : Fragment() {
 
         binding = FragmentAddGhiChuBinding.inflate(inflater, container, false)
         alarmService = AddAlarm(context!!)
+        time = Calendar.getInstance().timeInMillis
         binding.switchReminder.setOnCheckedChangeListener { _ , isChecked ->
             if(isChecked) {
                 binding.setTextViewTime.visibility = VISIBLE
@@ -60,10 +61,9 @@ class AddFragment : Fragment() {
                             cal.set(Calendar.MONTH, month)
                             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                             time = cal.timeInMillis
-                            binding.setTextViewTime.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                            binding.setTextViewTime.text = DateFormat.format("HH:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                         }
                         context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
-
                     }
                     TimePickerDialog(context, time, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
                 }
@@ -108,9 +108,9 @@ class AddFragment : Fragment() {
                 false,
                 time
             )
-            Log.e("id", newData.todo_id.toString())
             toDoViewModel.insertData(newData)
             if (binding.switchReminder.isChecked) alarmService.setExactAlarm(time, newData)
+            Log.e("time_addFragment", newData.todo_timeInMillis.toString())
             Toast.makeText(requireContext(), "Thêm ghi chú thành công!", Toast.LENGTH_LONG).show()
 
             // Navigate back

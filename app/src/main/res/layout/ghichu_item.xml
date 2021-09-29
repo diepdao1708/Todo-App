@@ -7,10 +7,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="toDoData"
             type="com.android.diepdao1708.todo4.data.models.ToDoData" />
+        <import type="android.view.View"/>
     </data>
 
 
@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:padding="16dp"
         android:sendDataToUpdateFragment="@{toDoData}"
         android:background="@drawable/row_item_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,74 +28,72 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout"
-            android:orientation="horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="16dp"
-            tools:ignore="MissingConstraints"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="16dp"
-            android:weightSum="45">
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_weight="25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{toDoData.todo_title}"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/darkGray"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_loinhac"
-                android:reminder="@{toDoData.todo_reminder}"
-                android:visibility="invisible"/>
-
-            <TextView
-                android:id="@+id/textViewTime"
-                android:layout_weight="19"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{toDoData.todo_time}"
-                android:reminder="@{toDoData.todo_reminder}"
-                android:visibility="invisible"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/darkGray"
-                android:background="@drawable/time_date_background"
-                android:textSize="11sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
+            android:text="@{toDoData.todo_title}"
+            android:textColor="@color/white_text"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility='@{toDoData.todo_title.equals("") ? View.GONE : View.VISIBLE}'/>
 
         <TextView
             android:id="@+id/textViewDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:maxLength="300"
             android:maxLines="10"
+            android:textSize="18sp"
             android:text="@{toDoData.todo_description}"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/white_text"
+            android:fontFamily="@font/roboto_slab"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_marginRight="16dp" />
+            app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="45"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/textViewDescription"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
+            android:visibility="@{toDoData.todo_reminder ? View.VISIBLE : View.GONE}"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:src="@drawable/ic_alarm"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="17"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:reminder="@{toDoData.todo_reminder}"
+                android:text="@{toDoData.todo_time}"
+                android:textColor="@color/gray_text"
+                android:textSize="15sp"
+                android:fontFamily="@font/roboto_slab"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

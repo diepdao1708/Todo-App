@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:padding="16dp"
         android:background="@drawable/row_item_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,18 +19,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textViewTitle_nhan"
+            android:id="@+id/textViewTitleNhan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/darkGray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/white_text"
+            android:fontFamily="@font/roboto_slab_bold"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

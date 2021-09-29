@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the title and text -->
+        <item name="android:textColor">@color/white_text</item>
+        <item name="android:textColorAlertDialogListItem">@color/gray_text</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/black_card </item>
+    </style>
+
+    <style name="MyTimePickerStyle" parent="android:Widget.Material.TimePicker">
+        <item name="android:headerBackground">@color/black_card</item>
+        <item name="android:numbersTextColor">@color/white_text</item>
+        <item name="android:numbersSelectorColor">@color/purple</item>
+        <item name="android:numbersBackgroundColor">@color/black_card</item>
+        <item name="colorAccent">@color/black_card</item>
+        <item name="android:background">@color/app</item>
+    </style>
+
+    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+        <item name="android:windowBackground">@color/app</item>
+
+
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:headerBackground">@color/black_card</item>
+        <item name="android:background">@color/app</item>
+    </style>
+
+    <style name="Theme.Todo4" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white_text</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white_text</item>
+        <item name="android:textColorPrimary">@color/white_text</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/purple</item>
+        <item name="colorOnSecondary">@color/app</item>
+        <item name="colorControlNormal">@color/gray_text</item>
+        <item name="android:itemBackground">@color/black_card</item>
+        <item name="popupMenuBackground">@color/black_card</item>
+        <item name="android:textColor">@color/white_text</item>
+        <item name="android:colorAccent">@color/black_card</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnSecondary</item>
+        <!-- Customize your theme here. -->
+        <item name="android:timePickerStyle">@style/MyTimePickerStyle</item>
+        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+
+    </style>
+
+</resources>

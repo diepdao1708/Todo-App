@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/app"
         tools:context=".fragments.thungrac.ThungRacFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -30,14 +31,16 @@
             android:id="@+id/imageViewNoNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_no_data"
+            android:src="@drawable/ic_background_thungrac"
+            android:tint="@color/gray_text"
             android:visibility="invisible"
             android:emptyDatabase="@{sharedViewModel.emptyDatabase}"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView_delete"
             app:layout_constraintEnd_toEndOf="@+id/recyclerView_delete"
             app:layout_constraintStart_toStartOf="@+id/recyclerView_delete"
             app:layout_constraintTop_toTopOf="@+id/recyclerView_delete"
-            app:layout_constraintVertical_bias="0.32999998" />
+            app:layout_constraintVertical_bias="0.32999998"
+            tools:ignore="UseAppTint" />
 
         <TextView
             android:id="@+id/textViewNoData"
@@ -46,6 +49,8 @@
             android:layout_marginTop="15dp"
             android:alpha="0.5"
             android:text="Không có ghi chú nào trong thùng rác"
+            android:textColor="@color/gray_text"
+            android:fontFamily="@font/roboto_slab"
             android:textSize="18sp"
             android:visibility="invisible"
             android:emptyDatabase="@{sharedViewModel.emptyDatabase}"

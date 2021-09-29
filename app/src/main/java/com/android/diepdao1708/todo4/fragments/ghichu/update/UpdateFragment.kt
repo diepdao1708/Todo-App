@@ -64,7 +64,7 @@ class UpdateFragment : Fragment() {
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                         Log.e("time", cal.timeInMillis.toString())
                         time = cal.timeInMillis
-                        binding.setTextViewTimeUpdate.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                        binding.setTextViewTimeUpdate.text = DateFormat.format("HH:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                     }
                     context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
                 }
@@ -93,7 +93,7 @@ class UpdateFragment : Fragment() {
                             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                             Log.e("time", cal.timeInMillis.toString())
                             time = cal.timeInMillis
-                            binding.setTextViewTimeUpdate.text = DateFormat.format("hh:mm, dd/MM/yyyy", cal.timeInMillis).toString()
+                            binding.setTextViewTimeUpdate.text = DateFormat.format("HH:mm, dd/MM/yyyy", cal.timeInMillis).toString()
                         }
                         context?.let { it1 -> DatePickerDialog(it1, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show() }
 
@@ -133,11 +133,9 @@ class UpdateFragment : Fragment() {
     private fun updateData(){
         val title = binding.editTextUpdateTitle.text.toString()
         val description = binding.editTextUpdateDescription.text.toString()
-        if ( args.currentItem.todo_reminder && !binding.switchReminderUpdate.isChecked) {
-            alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
-        }
-        if (binding.switchReminderUpdate.isChecked && binding.setTextViewTimeUpdate.text.toString() != args.currentItem.todo_time){
-            alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
+
+        if (binding.switchReminderUpdate.isChecked && binding.setTextViewTimeUpdate.text.toString() == args.currentItem.todo_time) {
+            time = args.currentItem.todo_timeInMillis
         }
 
         val validation = sharedViewModel.verifDataFromUser(description)
@@ -153,7 +151,13 @@ class UpdateFragment : Fragment() {
                 time
             )
             toDoViewModel.updateData(updateData)
-            if (binding.switchReminderUpdate.isChecked) alarmService.setExactAlarm(time, updateData)
+            if ( args.currentItem.todo_reminder && !binding.switchReminderUpdate.isChecked) {
+                alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
+            }
+            if (binding.switchReminderUpdate.isChecked && binding.setTextViewTimeUpdate.text.toString() != args.currentItem.todo_time){
+                alarmService.cancelAlarm(args.currentItem.todo_RequestCode)
+                alarmService.setExactAlarm(time, updateData)
+            }
             Toast.makeText(requireContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(R.id.action_updateFragment_to_ghiChuFragment)
@@ -164,7 +168,7 @@ class UpdateFragment : Fragment() {
     }
 
     private fun deleteData(){
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext(), R.style.AlertDialog)
         builder.setPositiveButton("Có"){  _, _ ->
             val deletedData = ToDoData(
                 args.currentItem.todo_id,

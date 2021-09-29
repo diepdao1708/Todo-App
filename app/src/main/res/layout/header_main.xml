@@ -5,16 +5,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="50dp"
+    android:paddingBottom="10dp"
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp"
     android:layout_marginLeft="16dp"
-    android:background="@color/white">
+    android:background="@color/app">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Todo App"
-        android:textSize="26sp"
-        android:textColor="@color/black"/>
+        android:fontFamily="@font/roboto_slab"
+        android:text="Note - Ghi chú"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
 </LinearLayout>
