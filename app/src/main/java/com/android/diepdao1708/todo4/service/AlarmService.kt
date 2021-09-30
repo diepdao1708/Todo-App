@@ -32,7 +32,7 @@ class AlarmService : Service(){
             .setContentTitle(title)
             .setContentText(description)
             .setSmallIcon(R.mipmap.ic_icon)
-            .setColor(resources.getColor(R.color.purple))
+            .setColor(resources.getColor(R.color.teal_700))
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
